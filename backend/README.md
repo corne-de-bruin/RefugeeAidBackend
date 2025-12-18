@@ -1,6 +1,13 @@
 # Hackathon Backend
 
-NestJS backend application that serves data from the Dataset.csv file via REST API.
+NestJS backend application that serves data from the Dataset.csv file via REST API using SQLite database with TypeORM.
+
+## Features
+
+- **SQLite Database**: Lightweight database with TypeORM for data persistence
+- **Auto-seeding**: Automatically loads CSV data into the database on first startup
+- **REST API**: Full CRUD endpoints for aid worker data
+- **Query Support**: Filter by city and type of assistance
 
 ## Installation
 

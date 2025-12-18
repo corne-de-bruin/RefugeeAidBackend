@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AidWorkerService } from './aid-worker.service';
-import { AidWorker } from './aid-worker.interface';
+import { AidWorker } from './aid-worker.entity';
 
 @Controller('api/aidworker')
 export class AidWorkerController {

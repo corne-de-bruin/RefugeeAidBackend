@@ -1,71 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import * as path from 'path';
-import * as csvParser from 'csv-parser';
-import { AidWorker } from './aid-worker.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, ILike } from 'typeorm';
+import { AidWorker } from './aid-worker.entity';
 
 @Injectable()
 export class AidWorkerService {
-  private readonly csvFilePath: string;
-
-  constructor() {
-    // Path to the CSV file relative to the project root
-    this.csvFilePath = path.join(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'dataset',
-      'Dataset.csv',
-    );
-  }
+  constructor(
+    @InjectRepository(AidWorker)
+    private aidWorkerRepository: Repository<AidWorker>,
+  ) {}
 
   async getAllData(): Promise<AidWorker[]> {
-    return new Promise((resolve, reject) => {
-      const results: AidWorker[] = [];
-
-      fs.createReadStream(this.csvFilePath)
-        .pipe(csvParser())
-        .on('data', (data) => {
-          // Map CSV columns to our interface
-          const entry: AidWorker = {
-            nr: parseInt(data['Nr.']) || 0,
-            voornaam: data['Voornaam'] || '',
-            achternaam: data['Achternaam'] || '',
-            geslacht: data['Geslacht'] || '',
-            typeHulpverlening: data['Type hulpverlening'] || '',
-            leeftijd: parseInt(data['Leeftijd']) || 0,
-            woonplaats: data['Woonplaats'] || '',
-            gesprokenTalen: data['Gesproken talen'] || '',
-          };
-          results.push(entry);
-        })
-        .on('end', () => {
-          resolve(results);
-        })
-        .on('error', (error) => {
-          reject(error);
-        });
-    });
+    return this.aidWorkerRepository.find();
   }
 
   async getById(id: number): Promise<AidWorker | null> {
-    const allData = await this.getAllData();
-    return allData.find((entry) => entry.nr === id) || null;
+    return this.aidWorkerRepository.findOne({ where: { nr: id } });
   }
 
   async filterByCity(city: string): Promise<AidWorker[]> {
-    const allData = await this.getAllData();
-    return allData.filter(
-      (entry) => entry.woonplaats.toLowerCase() === city.toLowerCase(),
-    );
+    return this.aidWorkerRepository.find({
+      where: { woonplaats: ILike(city) },
+    });
   }
 
   async filterByType(type: string): Promise<AidWorker[]> {
-    const allData = await this.getAllData();
-    return allData.filter(
-      (entry) =>
-        entry.typeHulpverlening.toLowerCase().includes(type.toLowerCase()),
-    );
+    return this.aidWorkerRepository.find({
+      where: { typeHulpverlening: ILike(`%${type}%`) },
+    });
   }
 }
