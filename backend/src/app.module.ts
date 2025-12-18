@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { DatasetModule } from './dataset/dataset.module';
+import { AidWorkerModule } from './aid-worker/aid-worker.module';
 
 @Module({
-  imports: [DatasetModule],
+  imports: [AidWorkerModule],
 })
 export class AppModule {}

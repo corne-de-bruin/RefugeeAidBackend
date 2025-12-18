@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as csvParser from 'csv-parser';
-import { DatasetEntry } from './dataset.interface';
+import { AidWorker } from './aid-worker.interface';
 
 @Injectable()
-export class DatasetService {
+export class AidWorkerService {
   private readonly csvFilePath: string;
 
   constructor() {
@@ -20,15 +20,15 @@ export class DatasetService {
     );
   }
 
-  async getAllData(): Promise<DatasetEntry[]> {
+  async getAllData(): Promise<AidWorker[]> {
     return new Promise((resolve, reject) => {
-      const results: DatasetEntry[] = [];
+      const results: AidWorker[] = [];
 
       fs.createReadStream(this.csvFilePath)
         .pipe(csvParser())
         .on('data', (data) => {
           // Map CSV columns to our interface
-          const entry: DatasetEntry = {
+          const entry: AidWorker = {
             nr: parseInt(data['Nr.']) || 0,
             voornaam: data['Voornaam'] || '',
             achternaam: data['Achternaam'] || '',
@@ -49,19 +49,19 @@ export class DatasetService {
     });
   }
 
-  async getById(id: number): Promise<DatasetEntry | null> {
+  async getById(id: number): Promise<AidWorker | null> {
     const allData = await this.getAllData();
     return allData.find((entry) => entry.nr === id) || null;
   }
 
-  async filterByCity(city: string): Promise<DatasetEntry[]> {
+  async filterByCity(city: string): Promise<AidWorker[]> {
     const allData = await this.getAllData();
     return allData.filter(
       (entry) => entry.woonplaats.toLowerCase() === city.toLowerCase(),
     );
   }
 
-  async filterByType(type: string): Promise<DatasetEntry[]> {
+  async filterByType(type: string): Promise<AidWorker[]> {
     const allData = await this.getAllData();
     return allData.filter(
       (entry) =>

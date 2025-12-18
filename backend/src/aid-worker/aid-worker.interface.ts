@@ -1,4 +1,4 @@
-export interface DatasetEntry {
+export interface AidWorker {
   nr: number;
   voornaam: string;
   achternaam: string;
