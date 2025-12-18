@@ -31,14 +31,63 @@ The application will run on `http://localhost:3000`
 
 ## API Endpoints
 
-### Get All Data
+### Get All Aid Workers
 ```
 GET http://localhost:3000/api/aidworker
 ```
 
-### Get Data by ID
+### Get Aid Worker by ID
 ```
 GET http://localhost:3000/api/aidworker/:id
+```
+
+### Create New Aid Worker
+```
+POST http://localhost:3000/api/aidworker
+Content-Type: application/json
+
+{
+  "nr": 102,
+  "voornaam": "Jan",
+  "achternaam": "Jansen",
+  "geslacht": "Man",
+  "typeHulpverlening": "Psychologische hulp",
+  "leeftijd": 35,
+  "woonplaats": "Amsterdam",
+  "gesprokenTalen": "Nederlands, Engels"
+}
+```
+
+### Update Aid Worker (Full)
+```
+PUT http://localhost:3000/api/aidworker/:id
+Content-Type: application/json
+
+{
+  "voornaam": "Jan",
+  "achternaam": "de Vries",
+  "geslacht": "Man",
+  "typeHulpverlening": "Juridische ondersteuning",
+  "leeftijd": 36,
+  "woonplaats": "Rotterdam",
+  "gesprokenTalen": "Nederlands, Engels, Duits"
+}
+```
+
+### Update Aid Worker (Partial)
+```
+PATCH http://localhost:3000/api/aidworker/:id
+Content-Type: application/json
+
+{
+  "woonplaats": "Utrecht",
+  "leeftijd": 37
+}
+```
+
+### Delete Aid Worker
+```
+DELETE http://localhost:3000/api/aidworker/:id
 ```
 
 ### Filter by City
