@@ -100,8 +100,92 @@ GET http://localhost:3000/api/aidworker?city=Amsterdam
 GET http://localhost:3000/api/aidworker?type=Juridische
 ```
 
+## Refugee API Endpoints
+
+### Get All Refugees
+```
+GET http://localhost:3000/api/refugee
+```
+
+### Get Refugee by ID
+```
+GET http://localhost:3000/api/refugee/:id
+```
+
+### Create New Refugee
+```
+POST http://localhost:3000/api/refugee
+Content-Type: application/json
+
+{
+  "voornaam": "Ahmad",
+  "achternaam": "Hassan",
+  "geslacht": "Man",
+  "leeftijd": 28,
+  "landVanHerkomst": "Syria",
+  "gesprokenTalen": "Arabisch, Engels",
+  "woonplaats": "Amsterdam",
+  "statusAanvraag": "In behandeling",
+  "typeHulpNodig": "Huisvesting, Taalles",
+  "contactEmail": "ahmad.hassan@example.com",
+  "contactTelefoon": "+31612345678"
+}
+```
+
+### Update Refugee (Full)
+```
+PUT http://localhost:3000/api/refugee/:id
+Content-Type: application/json
+
+{
+  "voornaam": "Ahmad",
+  "achternaam": "Hassan",
+  "geslacht": "Man",
+  "leeftijd": 29,
+  "landVanHerkomst": "Syria",
+  "gesprokenTalen": "Arabisch, Engels, Nederlands",
+  "woonplaats": "Utrecht",
+  "statusAanvraag": "Goedgekeurd",
+  "typeHulpNodig": "Arbeidsbemiddeling",
+  "contactEmail": "ahmad.hassan@example.com",
+  "contactTelefoon": "+31612345678"
+}
+```
+
+### Update Refugee (Partial)
+```
+PATCH http://localhost:3000/api/refugee/:id
+Content-Type: application/json
+
+{
+  "statusAanvraag": "Goedgekeurd",
+  "woonplaats": "Rotterdam"
+}
+```
+
+### Delete Refugee
+```
+DELETE http://localhost:3000/api/refugee/:id
+```
+
+### Filter by Country
+```
+GET http://localhost:3000/api/refugee?country=Syria
+```
+
+### Filter by City
+```
+GET http://localhost:3000/api/refugee?city=Amsterdam
+```
+
+### Filter by Status
+```
+GET http://localhost:3000/api/refugee?status=Goedgekeurd
+```
+
 ## Example Response
 
+### Aid Worker Response
 ```json
 [
   {
@@ -113,6 +197,28 @@ GET http://localhost:3000/api/aidworker?type=Juridische
     "leeftijd": 45,
     "woonplaats": "Amsterdam",
     "gesprokenTalen": "Nederlands, Engels, Duits"
+  }
+]
+```
+
+### Refugee Response
+```json
+[
+  {
+    "id": 1,
+    "voornaam": "Ahmad",
+    "achternaam": "Hassan",
+    "geslacht": "Man",
+    "leeftijd": 28,
+    "landVanHerkomst": "Syria",
+    "gesprokenTalen": "Arabisch, Engels",
+    "woonplaats": "Amsterdam",
+    "statusAanvraag": "In behandeling",
+    "typeHulpNodig": "Huisvesting, Taalles",
+    "contactEmail": "ahmad.hassan@example.com",
+    "contactTelefoon": "+31612345678",
+    "aangemaakt": "2025-12-18T10:30:00.000Z",
+    "bijgewerkt": "2025-12-18T10:30:00.000Z"
   }
 ]
 ```
