@@ -6,6 +6,9 @@
 *.sqlite
 *.db
 
+# Docs
+/docs/openapi.json
+
 # Logs
 logs
 *.log

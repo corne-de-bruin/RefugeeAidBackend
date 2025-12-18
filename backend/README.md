@@ -6,8 +6,9 @@ NestJS backend application that serves data from the Dataset.csv file via REST A
 
 - **SQLite Database**: Lightweight database with TypeORM for data persistence
 - **Auto-seeding**: Automatically loads CSV data into the database on first startup
-- **REST API**: Full CRUD endpoints for aid worker data
-- **Query Support**: Filter by city and type of assistance
+- **REST API**: Full CRUD endpoints for aid worker and refugee data
+- **Query Support**: Filter by city, type of assistance, country, and application status
+- **Swagger Documentation**: Interactive API documentation with Swagger UI
 
 ## Installation
 
@@ -28,6 +29,35 @@ npm run start:prod
 ```
 
 The application will run on `http://localhost:3000`
+
+## API Documentation
+
+### Swagger UI (Interactive)
+
+Once the application is running, access the interactive Swagger documentation at:
+
+```
+http://localhost:3000/api/docs
+```
+
+The Swagger UI provides:
+- **Interactive API testing** - Try out all endpoints directly from the browser
+- **Request/Response examples** - See example payloads for all operations
+- **Schema definitions** - View all data models and their properties
+- **Parameter descriptions** - Understand what each field requires
+
+### OpenAPI Specification
+
+The OpenAPI JSON specification is automatically generated and saved to:
+```
+backend/docs/openapi.json
+```
+
+This file can be used to:
+- Generate client SDKs in multiple languages
+- Import into API testing tools (Postman, Insomnia, etc.)
+- Share API contracts with frontend developers
+- Integrate with API gateways
 
 ## API Endpoints
 
